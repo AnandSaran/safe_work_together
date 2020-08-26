@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "497332890808",
+    "firebase_url": "https://safe-work-together.firebaseio.com",
+    "project_id": "safe-work-together",
+    "storage_bucket": "safe-work-together.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:497332890808:android:7b74bd65229a5937e4984d",
+        "android_client_info": {
+          "package_name": "com.gregantech.safeworktogether"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "497332890808-43fmm199kaosqdh53b1vtoc306icfj2e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARfaYYvu57RVEkvsUwG3A8cw6yotMfRuY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "497332890808-43fmm199kaosqdh53b1vtoc306icfj2e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

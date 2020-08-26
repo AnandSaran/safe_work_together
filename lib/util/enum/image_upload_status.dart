@@ -1,0 +1,4 @@
+enum ImageUploadStatus{
+  UPLOADING,
+  UPLOADED
+}
