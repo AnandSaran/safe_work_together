@@ -7,6 +7,8 @@ const String SYMBOL_PLUS = "+";
 const String SYMBOL_EXCELEMETRY = "!";
 const String SYMBOL_COMMA = ",";
 const String SYMBOL_DOT = ".";
+const String SYMBOL_CELSIUS = "°C";
+const String SYMBOL_FAHRENHEIT = "°F";
 
 const String HELLO= "Hello";
 const String GOOD= "Good";
@@ -48,6 +50,7 @@ const String EMPLOYEE_NAME="Employee name";
 const String ASSIGNED_SITES="Assigned sites are ";
 const String ASSIGNED_ENTRY_LEFT_TODAY="entry left today.";
 const String ASSIGNED_ENTRY_COMPLETE="You have completed the entry today";
+const String NO_ENTRY="No entry for the day";
 
 const String ACTION_SUBMIT="Submit";
 const String ACTION_VERIFY_MOBILE="Verify mobile";

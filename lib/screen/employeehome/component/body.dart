@@ -518,7 +518,7 @@ class Body extends StatelessWidget {
         stream: _bloc.company,
         builder: (context, AsyncSnapshot<Company> snapshot) {
           bool isVisible =
-              snapshot.hasData ? snapshot.data.isToTrackRunningNose : false;
+              snapshot.hasData ? snapshot.data.isToTrackShortnessOfBreath : false;
           return Visibility(
             child: _rowTrack(
                 COMPANY_REGISTRATION_TRACK_SHORTNESS_OF_BREATH,

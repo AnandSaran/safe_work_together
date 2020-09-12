@@ -7,6 +7,7 @@ part 'entry.g.dart';
 @JsonSerializable(explicitToJson: true)
 class Entry {
   String employeeId;
+  String employeeName;
   String employerId;
   double temperature;
   double heartRate;
@@ -17,10 +18,13 @@ class Entry {
   int shortnessOfBreath;
   @JsonKey(ignore: true)
   DateTime date;
+  @JsonKey(ignore: true)
+  String id;
   List<Site> siteList;
 
   Entry({
       this.employeeId,
+      this.employeeName,
       this.employerId,
       this.temperature=-1,
       this.heartRate=-1,

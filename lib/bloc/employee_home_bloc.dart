@@ -133,8 +133,8 @@ class EmployeeHomeBloc extends BlocBase {
       return true;
     } else if (temperature.hasValue &&
         temperature.value.toString().isNotEmpty &&
-        25 < temperature.value &&
-        temperature.value < 45) {
+        ((25 < temperature.value && temperature.value < 45) ||
+            (90 < temperature.value && temperature.value < 120))) {
       return true;
     } else {
       temperature.addError(ERROR_INVALID);
@@ -207,6 +207,7 @@ class EmployeeHomeBloc extends BlocBase {
     Entry entry = new Entry();
     entry.employerId = employee.value.employerId;
     entry.employeeId = employee.value.employeeId;
+    entry.employeeName = employee.value.employeeName;
     entry.siteList = company.value.siteList;
     if (company.value.isToTrackTemperature) {
       entry.temperature = temperature.value;

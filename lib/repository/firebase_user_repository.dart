@@ -16,7 +16,7 @@ class FirebaseUserRepository implements AuthUserRepository {
     return user != null
         ? Employee(
             id: user.uid,
-            name: user.displayName,
+            employeeName: user.displayName,
             email: user.email,
             imageUrl: user.photoUrl,
             mobileNumber: user.phoneNumber)

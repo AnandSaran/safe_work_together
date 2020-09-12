@@ -9,13 +9,14 @@ part 'site.g.dart';
 @JsonSerializable(explicitToJson: true)
 class Site {
 
+  @JsonKey(ignore: true)
   String id;
   String name;
   int perDaySubmit;
   @JsonKey(ignore: true)
   bool isSelected = false;
 
-  Site(this.id, this.name, this.perDaySubmit);
+  Site(this.name, this.perDaySubmit);
 
   factory Site.fromJson(Map<String, dynamic> json) => _$SiteFromJson(json);
 

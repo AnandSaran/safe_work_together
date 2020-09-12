@@ -35,8 +35,8 @@ class EmployeeRepository implements EmployeeRepositoryAbstract {
   }
 
   @override
-  Future<bool> isEmployeeNotRegistered(
-      Employee employee, String employerId) async {
+  Future<bool> isEmployeeNotRegistered(Employee employee,
+      String employerId) async {
     final QuerySnapshot result = await _employeeCollection
         .where(FS_KEY_EMPLOYEE_ID, isEqualTo: employee.employeeId)
         .where(FS_KEY_EMPLOYER_ID, isEqualTo: employerId)
@@ -45,83 +45,78 @@ class EmployeeRepository implements EmployeeRepositoryAbstract {
     if (docs.length == 0) {
       return true;
     } else {
-      SharedPreferenceUtil()
-          .containsKey(SHARED_PREF_KEY_COMPANY_ID)
-          .asStream()
-          .listen((event) {
-        if (!event) {
-          SharedPreferenceUtil()
-              .setString(SHARED_PREF_KEY_EMPLOYEE_ID, docs[0].documentID);
-        }
-      });
+     await SharedPreferenceUtil()
+          .setString(SHARED_PREF_KEY_EMPLOYEE_ID, docs[0].documentID);
       return false;
     }
-  }
 
-  Future<List<Employee>> fetchFirstList() async {
-    var employerId=SharedPreferenceUtil().getString(SHARED_PREF_KEY_COMPANY_ID);
-    try {
-      clearEmployeeList();
-      final QuerySnapshot result=(await _employeeCollection
-          .orderBy(FS_KEY_EMPLOYEE_NAME)
-          .where(FS_KEY_EMPLOYER_ID, isEqualTo: employerId)
-          .limit(10)
-          .getDocuments());
-      employeeListDocumentSnapshot = result.documents;
-      employeeList.addAll(employeeListDocumentSnapshot.map((e) {
-        var employee = Employee.fromJson(e.data);
-        return employee;
-      }));
-      return employeeList;
-    } catch (e) {
-      print(e.toString());
-      return employeeList;
-    }
-  }
+}
 
-  void clearEmployeeList() {
-    employeeListDocumentSnapshot.clear();
-    employeeList.clear();
-  }
-
-  Future<List<Employee>> fetchNextEmployeeList() async {
-    var employerId=SharedPreferenceUtil().getString(SHARED_PREF_KEY_COMPANY_ID);
-
-    try {
-      List<DocumentSnapshot> newDocumentList = (await _employeeCollection
-              .orderBy(FS_KEY_EMPLOYEE_NAME)
-          .where(FS_KEY_EMPLOYER_ID, isEqualTo: employerId)
-          .startAfterDocument(employeeListDocumentSnapshot[
-                  employeeListDocumentSnapshot.length - 1])
-              .limit(10)
-              .getDocuments())
-          .documents;
-
-      employeeListDocumentSnapshot.addAll(newDocumentList);
-      employeeList.addAll(newDocumentList.map((e) {
-        var employee = Employee.fromJson(e.data);
-        return employee;
-      }));
-      return employeeList;
-    } catch (e) {
-      print(e.toString());
-      return employeeList;
-    }
-  }
-
-  Future<void> updateEmployeeMobileNumber(String mobileNumber) async {
-    Map<String, String> mobile = {FS_KEY_MOBILE_NUMBER: mobileNumber};
-    await (_employeeCollection
-        .document(SharedPreferenceUtil().getString(SHARED_PREF_KEY_EMPLOYEE_ID))
-        .updateData(mobile));
-  }
-
-  Future<Employee> fetchEmployee() async {
-    final DocumentSnapshot result = await (_employeeCollection
-        .document(SharedPreferenceUtil().getString(SHARED_PREF_KEY_EMPLOYEE_ID))
-        .get());
-    var employee = Employee.fromJson(result.data);
-    employee.id = result.documentID;
-    return employee;
+Future<List<Employee>> fetchFirstList() async {
+  var employerId =
+  SharedPreferenceUtil().getString(SHARED_PREF_KEY_COMPANY_ID);
+  try {
+    clearEmployeeList();
+    final QuerySnapshot result = (await _employeeCollection
+        .orderBy(FS_KEY_EMPLOYEE_NAME)
+        .where(FS_KEY_EMPLOYER_ID, isEqualTo: employerId)
+        .limit(10)
+        .getDocuments());
+    employeeListDocumentSnapshot = result.documents;
+    employeeList.addAll(employeeListDocumentSnapshot.map((e) {
+      var employee = Employee.fromJson(e.data);
+      return employee;
+    }));
+    return employeeList;
+  } catch (e) {
+    print(e.toString());
+    return employeeList;
   }
 }
+
+void clearEmployeeList() {
+  employeeListDocumentSnapshot.clear();
+  employeeList.clear();
+}
+
+Future<List<Employee>> fetchNextEmployeeList() async {
+  var employerId =
+  SharedPreferenceUtil().getString(SHARED_PREF_KEY_COMPANY_ID);
+
+  try {
+    List<DocumentSnapshot> newDocumentList = (await _employeeCollection
+        .orderBy(FS_KEY_EMPLOYEE_NAME)
+        .where(FS_KEY_EMPLOYER_ID, isEqualTo: employerId)
+        .startAfterDocument(employeeListDocumentSnapshot[
+    employeeListDocumentSnapshot.length - 1])
+        .limit(10)
+        .getDocuments())
+        .documents;
+
+    employeeListDocumentSnapshot.addAll(newDocumentList);
+    employeeList.addAll(newDocumentList.map((e) {
+      var employee = Employee.fromJson(e.data);
+      return employee;
+    }));
+    return employeeList;
+  } catch (e) {
+    print(e.toString());
+    return employeeList;
+  }
+}
+
+Future<void> updateEmployeeMobileNumber(String mobileNumber) async {
+  Map<String, String> mobile = {FS_KEY_MOBILE_NUMBER: mobileNumber};
+  var employeeId =
+  SharedPreferenceUtil().getString(SHARED_PREF_KEY_EMPLOYEE_ID);
+  await (_employeeCollection.document(employeeId).updateData(mobile));
+}
+
+Future<Employee> fetchEmployee() async {
+  final DocumentSnapshot result = await (_employeeCollection
+      .document(SharedPreferenceUtil().getString(SHARED_PREF_KEY_EMPLOYEE_ID))
+      .get());
+  var employee = Employee.fromJson(result.data);
+  employee.id = result.documentID;
+  return employee;
+}}

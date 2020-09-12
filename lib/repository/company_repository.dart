@@ -20,8 +20,8 @@ class CompanyRepository implements CompanyRepositoryAbstract {
 
   @override
   Future<bool> addCompany(Company company) async {
-    return _companyCollection.add(company.toJson()).then((value) {
-      SharedPreferenceUtil()
+    return _companyCollection.add(company.toJson()).then((value) async {
+      await SharedPreferenceUtil()
           .setString(SHARED_PREF_KEY_COMPANY_ID, value.documentID);
       print("Company Added");
       return true;
@@ -41,7 +41,7 @@ class CompanyRepository implements CompanyRepositoryAbstract {
     if (docs.length == 0) {
       return true;
     } else {
-      SharedPreferenceUtil()
+      await SharedPreferenceUtil()
           .setString(SHARED_PREF_KEY_COMPANY_ID, docs[0].documentID);
       return false;
     }
@@ -49,10 +49,12 @@ class CompanyRepository implements CompanyRepositoryAbstract {
 
   @override
   Future<Company> getCompany(String companyId) async {
-    final DocumentSnapshot result =
-        await _companyCollection.document(companyId).get();
-    company = Company.fromJson(result.data);
-    company.id = result.documentID;
+    if (company == null) {
+      final DocumentSnapshot result =
+          await _companyCollection.document(companyId).get();
+      company = Company.fromJson(result.data);
+      company.id = result.documentID;
+    }
     return company;
   }
 

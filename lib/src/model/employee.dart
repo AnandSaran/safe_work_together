@@ -6,7 +6,6 @@ part 'employee.g.dart';
 class Employee {
   @JsonKey(ignore: true)
    String id;
-   String name;
    String email;
    String imageUrl;
    String mobileNumber;
@@ -15,7 +14,7 @@ class Employee {
    String employerId;
    List<Site> siteList;
 
-  Employee({this.id, this.name, this.email, this.imageUrl,this.mobileNumber});
+  Employee({this.id, this.employeeName, this.email, this.imageUrl,this.mobileNumber});
 
   factory Employee.fromJson(Map<String, dynamic> json) =>
       _$EmployeeFromJson(json);

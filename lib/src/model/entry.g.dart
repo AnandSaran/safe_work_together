@@ -9,6 +9,7 @@ part of 'entry.dart';
 Entry _$EntryFromJson(Map<String, dynamic> json) {
   return Entry(
     employeeId: json['employeeId'] as String,
+    employeeName: json['employeeName'] as String,
     employerId: json['employerId'] as String,
     temperature: (json['temperature'] as num)?.toDouble(),
     heartRate: (json['heartRate'] as num)?.toDouble(),
@@ -24,6 +25,7 @@ Entry _$EntryFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$EntryToJson(Entry instance) => <String, dynamic>{
       'employeeId': instance.employeeId,
+      'employeeName': instance.employeeName,
       'employerId': instance.employerId,
       'temperature': instance.temperature,
       'heartRate': instance.heartRate,

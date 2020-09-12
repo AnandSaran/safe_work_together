@@ -56,12 +56,17 @@ class App extends StatelessWidget {
             ),
         ROUTE_COMPANY_HOME: (context) => BlocProvider<CompanyHomeBloc>(
               bloc: CompanyHomeBloc(
-                  companyRepository: _companyRepository,
-                  employeeRepository: _employeeRepository),
+                companyRepository: _companyRepository,
+                employeeRepository: _employeeRepository,
+                entryRepository: _entryRepository,
+              ),
               child: CompanyHomeScreen(),
             ),
         ROUTE_EMPLOYEE_HOME: (context) => BlocProvider<EmployeeHomeBloc>(
-              bloc: EmployeeHomeBloc(employeeRepository: _employeeRepository,entryRepository: _entryRepository,companyRepository: _companyRepository),
+              bloc: EmployeeHomeBloc(
+                  employeeRepository: _employeeRepository,
+                  entryRepository: _entryRepository,
+                  companyRepository: _companyRepository),
               child: EmployeeHomeScreen(),
             )
       },

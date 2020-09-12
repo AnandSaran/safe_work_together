@@ -6,6 +6,7 @@ import 'package:safe_work_together/repository/company_repository.dart';
 import 'package:safe_work_together/repository/repository.dart';
 import 'package:safe_work_together/screen/companycretaeuser/component/company_create_employee.dart';
 import 'package:safe_work_together/screen/companyuserlist/component/company_employee_list.dart';
+import 'package:safe_work_together/screen/employee_entry_list/employee_entry_list.dart';
 import 'package:safe_work_together/style/theme.dart' as Theme;
 import 'package:safe_work_together/util/sharedpreference.dart';
 
@@ -18,6 +19,7 @@ class _CompanyHomeState extends State<CompanyHomeScreen> {
   int _selectedIndex = 0;
   EmployeeRepository _employeeRepository;
   CompanyRepository _companyRepository;
+  EntryRepository _entryRepository;
   CompanyHomeBloc _bloc;
   BlocProvider<CompanyEmployeeListBloc> widgetEmployeeList;
   BlocProvider<CompanyCreateEmployeeBloc> widgetCreateEmployee;
@@ -88,26 +90,53 @@ class _CompanyHomeState extends State<CompanyHomeScreen> {
     );
   }
 
-  Widget getWidget() {
-    switch (_selectedIndex) {
-      case 0:
-        break;
-      case 1:
-        return _widgetCreateEmployee();
-      case 2:
-        return _widgetEmployeeList();
-    }
+  BlocProvider<EmployeeEntryListBloc> _widgetEntryList() {
+    return BlocProvider<EmployeeEntryListBloc>(
+      bloc: EmployeeEntryListBloc(
+          companyRepository: _companyRepository,
+          entryRepository: _entryRepository),
+      child: EmployeeEntryList(),
+    );
   }
 
-  void getCompanyData() {
-    _companyRepository.getCompany(
-        SharedPreferenceUtil().getString(SHARED_PREF_KEY_COMPANY_ID));
+  Widget getWidget() {
+    return StreamBuilder(
+        stream: _bloc.isGetCompanySuccess,
+        builder: (context, AsyncSnapshot<bool> snapshot) {
+          var isGetCompanySuccess = snapshot.hasData ? snapshot.data : false;
+          return generateWidget(isGetCompanySuccess);
+        });
   }
 
   void init() {
-    _bloc = BlocProvider.of<CompanyHomeBloc>(context);
-    _employeeRepository = _bloc.employeeRepository;
-    _companyRepository = _bloc.companyRepository;
-    getCompanyData();
+    if(_bloc==null) {
+      _bloc = BlocProvider.of<CompanyHomeBloc>(context);
+      _employeeRepository = _bloc.employeeRepository;
+      _companyRepository = _bloc.companyRepository;
+      _entryRepository = _bloc.entryRepository;
+      _bloc.getCompany();
+    }
+  }
+
+  Widget generateWidget(bool isGetCompanySuccess) {
+    Widget widget;
+    if (isGetCompanySuccess) {
+      switch (_selectedIndex) {
+        case 0:
+          widget = _widgetEntryList();
+          break;
+        case 1:
+          widget = _widgetCreateEmployee();
+          break;
+        case 2:
+          widget = _widgetEmployeeList();
+          break;
+      }
+    } else {
+      widget = SizedBox(
+        height: 10,
+      );
+    }
+    return widget;
   }
 }

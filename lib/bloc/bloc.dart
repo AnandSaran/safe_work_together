@@ -6,3 +6,4 @@ export 'company_home_bloc.dart';
 export 'company_create_employee_bloc.dart';
 export 'company_employee_list_bloc.dart';
 export 'employee_home_bloc.dart';
+export 'employee_entry_list_bloc.dart';

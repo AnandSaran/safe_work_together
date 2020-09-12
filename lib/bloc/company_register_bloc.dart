@@ -200,7 +200,7 @@ class CompanyRegisterBloc extends BlocBase {
   }
 
   void addSite() {
-    Site site = Site("", _siteName.value, _perDayEntry.value);
+    Site site = Site(_siteName.value, _perDayEntry.value);
     if (!siteList.hasValue) {
       changeSiteList(new List());
     }
