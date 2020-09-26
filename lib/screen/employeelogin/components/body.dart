@@ -251,6 +251,7 @@ class Body extends StatelessWidget {
                   textInputAction: TextInputAction.done,
                   onChanged: (mobileNumber) {
                     _bloc.changeMobileNumber(mobileNumber);
+                    _bloc.changeOtpVerified(false);
                   },
                   onFieldSubmitted: (term) {
                     _bloc.generateOtp();

@@ -60,6 +60,7 @@ const String ACTION_SUCCESS="Submitted Successfully";
 const String ACTION_EMPLOYEE_ENTRY='Employee Entry';
 const String ACTION_CREATE_EMPLOYEE='Create Employee';
 const String ACTION_EMPLOYEE_LIST='Employee List';
+const String ACTION_REPORT='Report';
 
 
 const String ERROR_MESSAGE="Something went wrong, Please try again";
@@ -82,6 +83,7 @@ const String ERROR_EMPLOYEE_NAME_EMPTY="Enter employee name";
 const String ERROR_EMPLOYEE_ALREADY_REGISTERED="Employee already registered";
 const String ERROR_EMPLOYEE_ID="Enter valid id";
 const String ERROR_INVALID="Invalid";
+const String ERROR_COMING_SOON="Coming soon";
 
 const String SUCCESS_EMPLOYEE_ADDED="Employee added";
 

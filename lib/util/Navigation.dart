@@ -18,7 +18,7 @@ class Navigation {
       Navigator.pushNamedAndRemoveUntil(
         context,
         route,
-        (Route<dynamic> route) => false,
+            (Route<dynamic> route) => false,
       );
     } else {
       Navigator.pushNamed(context, route);
@@ -37,4 +37,9 @@ class Navigation {
     hidKeyPad();
     Scaffold.of(context).showSnackBar(SnackBar(content: Text(message)));
   }
+
+  void showToastGlobal(GlobalKey<ScaffoldState> scaffoldKey, String message) {
+    hidKeyPad();
+    scaffoldKey.currentState.showSnackBar(SnackBar(content: Text(message)));
+    }
 }

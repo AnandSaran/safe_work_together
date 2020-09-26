@@ -8,6 +8,7 @@ import 'package:safe_work_together/screen/companycretaeuser/component/company_cr
 import 'package:safe_work_together/screen/companyuserlist/component/company_employee_list.dart';
 import 'package:safe_work_together/screen/employee_entry_list/employee_entry_list.dart';
 import 'package:safe_work_together/style/theme.dart' as Theme;
+import 'package:safe_work_together/util/Navigation.dart';
 import 'package:safe_work_together/util/sharedpreference.dart';
 
 class CompanyHomeScreen extends StatefulWidget {
@@ -23,7 +24,7 @@ class _CompanyHomeState extends State<CompanyHomeScreen> {
   CompanyHomeBloc _bloc;
   BlocProvider<CompanyEmployeeListBloc> widgetEmployeeList;
   BlocProvider<CompanyCreateEmployeeBloc> widgetCreateEmployee;
-
+  GlobalKey<ScaffoldState>_scaffoldKey=GlobalKey();
   @override
   void initState() {
     super.initState();
@@ -39,11 +40,9 @@ class _CompanyHomeState extends State<CompanyHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(APP_NAME),
-        backgroundColor: Theme.Colors.homeNavigationBarBackgroundColor,
-      ),
-      body: Center(
+      key: _scaffoldKey,
+      appBar:AppBarLayout(_scaffoldKey),
+    body: Center(
         child: getWidget(),
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -109,7 +108,7 @@ class _CompanyHomeState extends State<CompanyHomeScreen> {
   }
 
   void init() {
-    if(_bloc==null) {
+    if (_bloc == null) {
       _bloc = BlocProvider.of<CompanyHomeBloc>(context);
       _employeeRepository = _bloc.employeeRepository;
       _companyRepository = _bloc.companyRepository;
@@ -139,4 +138,29 @@ class _CompanyHomeState extends State<CompanyHomeScreen> {
     }
     return widget;
   }
+
+}
+class AppBarLayout extends AppBar {
+
+  final GlobalKey<ScaffoldState> scaffoldKey;
+
+  AppBarLayout(this.scaffoldKey): super(
+    title: Text(APP_NAME),
+    backgroundColor: Theme.Colors.homeNavigationBarBackgroundColor,
+    actions: [
+      InkWell(
+        child: Center(
+          child:Padding(
+            padding: EdgeInsets.all(10),
+          child: Text(
+            ACTION_REPORT,
+            style: TextStyle(fontSize: 16.00),
+          ),)
+        ),
+        onTap: () {
+          Navigation().showToastGlobal(scaffoldKey, ERROR_COMING_SOON);
+        },
+      )
+    ],
+  );
 }
