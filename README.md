@@ -9,6 +9,6 @@ A SafeWorkTogether  application.
 </p>
 
 <p align="center">
-  <img src="t1.png" width="256" height="455">
-  <img src="t2.png" width="256" height="455">
+  <img src="t1.png" width="57" height="40">
+  <img src="t2.png" width="57" height="40">
 </p>
